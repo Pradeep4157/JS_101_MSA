@@ -17,4 +17,17 @@
 
 */
 
-const API_URL = "http://www.omdbapi.com/?i=tt3896198&apikey=603248ba";
+const API_URL = "https://www.omdbapi.com/?i=tt3896198&apikey=603248ba";
+
+async function fetch_movies(query){
+    try{
+        const response = await fetch(`${API_URL}&s=${query}&page=${1}`);
+        const data = await response.json();
+        console.log(data);
+    }
+    catch(error){
+        console.log("Error occured while fetching movies..");
+    }
+}
+const search_query = "Action";
+fetch_movies(search_query);
