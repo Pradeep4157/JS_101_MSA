@@ -13,6 +13,12 @@
 
     difficult 
 
+    so now we have the json response.. 
+    
+    now we will mostly use the containers that are predefined to add
+
+    these movies.. 
+    
         
 
 */
@@ -31,3 +37,5 @@ async function fetch_movies(query){
 }
 const search_query = "Action";
 fetch_movies(search_query);
+
+const search_button = document.getElementById("searchBtn");
