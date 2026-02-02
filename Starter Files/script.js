@@ -71,17 +71,57 @@ search_button.onclick = function( ) {
 
     in the movieResults section.. 
 
+    now we have title, poster, year, type, 
+
+    all these information .. 
+
+    either we display all of them independently 
+
+    like image in a js img element, title in a new p ..
+
+    or maybe we create a div in js and then inside that 
+
+    we add these images and p ....
+
+    mostly it is second option because there is css 
+
+    for movie card as well..
+
+
+
+
 
 
 
          
  */
 function display_movie(data){
-    data.Search.forEach( movie => {
-        // var ele = document.createElement('p');
-        // ele.value = movie.title;
-        // console.log(ele);
-        console.log("ahhahaha");
+    const result_section = document.getElementById("movieResults");
+    data.forEach( movie => {
+        console.log(movie);
+        const card = document.createElement("div");
+        
+        // adding image to the card..
+        const movie_image = document.createElement("img");
+        movie_image.src = movie.Poster;
+        card.append(movie_image);
+
+        // adding title to the card..
+        const movie_title = document.createElement("h4");
+        movie_title.textContent = movie.Title;
+        card.appendChild(movie_title);
+
+        
+
+        // adding the card to the results section..
+        result_section.append(card);
+
+        card.classList.add("movie-card");
+
+
+
+        
+        
     });
 }
 
@@ -92,15 +132,14 @@ async function fetch_movies(query){
             throw new Error(`HTTP error! Status : ${response.status}`);
         }
         var data = await response.json();
-        
-        
 
         // now instead of just logging the response we will 
         // try to display it on webpage.. 
 
         if(data.Response === 'True'){
             console.log("We are getting some Response..");
-            display_movie(response);
+            
+            display_movie(data.Search);
         }
         else{
             console.log("No Movie found :( ");
