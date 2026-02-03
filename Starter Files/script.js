@@ -101,25 +101,17 @@ function display_movie(data){
         console.log(movie);
         const card = document.createElement("div");
         
-        // adding image to the card..
-        const movie_image = document.createElement("img");
-        movie_image.src = movie.Poster;
-        card.append(movie_image);
-
-        // adding title to the card..
-        const movie_title = document.createElement("h4");
-        movie_title.textContent = movie.Title;
-        card.appendChild(movie_title);
-
+        card.innerHTML = `<img src = "${movie.Poster}" alt = "${movie.Title}">
+        <h3>${movie.Title}</h3>
+        <p>${movie.Year}</p>
+        <button>Add to Favorites</button>`
+        
         
 
         // adding the card to the results section..
         result_section.append(card);
 
         card.classList.add("movie-card");
-
-
-
         
         
     });
