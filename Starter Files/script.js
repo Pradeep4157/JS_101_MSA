@@ -87,7 +87,21 @@ search_button.onclick = function( ) {
 
     for movie card as well..
 
+    now we need to implement the button functionality to 
 
+    add the movie to favorites..
+
+    if i just have to add it to favorites..
+
+    then i should assign a class or id to it and then 
+
+    if clicked then add it to favorites div.. 
+
+    first we need to store it in localStorage as well so that
+
+    it remains in the later sessions as well..
+
+    we will mostly store on the basis of ibmId..
 
 
 
@@ -95,6 +109,52 @@ search_button.onclick = function( ) {
 
          
  */
+document.addEventListener("DOMContentLoaded", function(){
+    load_all_the_favorites();
+});
+function load_all_the_favorites(){
+    // here i need to load all the movies from localStorage.. 
+    for(let i = 0; i < localStorage.length; i++){
+        const key = localStorage.key(i);
+        const json_string = localStorage.getItem(key);
+        try{
+            const movie = JSON.parse(json_string);
+            if(!movie.Title ) continue;
+            const card = document.createElement("div");
+            card.innerHTML = `<img src = "${movie.Poster}" alt = "${movie.Title}">
+            <h3>${movie.Title}</h3>
+            <p>${movie.Year}</p>`
+            const button = document.createElement('button');
+            button.textContent = 'Remove From Favorites';
+            card.append(button);
+            card.classList.add("movie-card");
+            favorites_section.add(card);
+        }
+        catch(error){
+            console.log("THIS IS NOT JSON..");
+        }
+    }
+}
+function add_movie_to_favorites(movie){
+    // adding to localStorage..
+    localStorage.setItem(`${movie.imdbID}`,JSON.stringify(movie));
+
+    // adding to favorites section..
+    const favorites_section = document.getElementById("favorites");
+    const card = document.createElement("div");
+    card.innerHTML = `<img src = "${movie.Poster}" alt = "${movie.Title}">
+        <h3>${movie.Title}</h3>
+        <p>${movie.Year}</p>
+        `
+        const button_to_add = document.createElement('button');
+        button_to_add.textContent = "Remove From Favorites";
+        card.append(button_to_add);
+        card.classList.add("movie-card");
+    favorites_section.append(card);
+
+
+}
+
 function display_movie(data){
     const result_section = document.getElementById("movieResults");
     data.forEach( movie => {
@@ -104,7 +164,13 @@ function display_movie(data){
         card.innerHTML = `<img src = "${movie.Poster}" alt = "${movie.Title}">
         <h3>${movie.Title}</h3>
         <p>${movie.Year}</p>
-        <button>Add to Favorites</button>`
+        `
+        const button_to_add = document.createElement('button');
+        button_to_add.textContent = "Add to Favorites";
+        card.append(button_to_add);
+
+        button_to_add.onclick = () => add_movie_to_favorites(movie);
+        
         
         
 
