@@ -113,11 +113,14 @@ document.addEventListener("DOMContentLoaded", function(){
     load_all_the_favorites();
 });
 function load_all_the_favorites(){
+    console.log("this function is running ..");
+    const favorites_section = document.getElementById("favorites");
     // here i need to load all the movies from localStorage.. 
     for(let i = 0; i < localStorage.length; i++){
         const key = localStorage.key(i);
         const json_string = localStorage.getItem(key);
         try{
+            
             const movie = JSON.parse(json_string);
             if(!movie.Title ) continue;
             const card = document.createElement("div");
@@ -128,10 +131,10 @@ function load_all_the_favorites(){
             button.textContent = 'Remove From Favorites';
             card.append(button);
             card.classList.add("movie-card");
-            favorites_section.add(card);
+            favorites_section.append(card);
         }
         catch(error){
-            console.log("THIS IS NOT JSON..");
+            console.log("THIS IS NOT JSON..",error);
         }
     }
 }
