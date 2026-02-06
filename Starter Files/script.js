@@ -111,6 +111,14 @@ search_button.onclick = function( ) {
     maybe we get some info about the card when it is clickd ?
 
 
+    so one more error is that the  movie is getting added multiple times 
+
+    if we try to add it multiple times 
+
+    that should'nt happen.. 
+
+
+
 
 
 
@@ -153,20 +161,23 @@ function load_all_the_favorites(){
 }
 function add_movie_to_favorites(movie){
     // adding to localStorage..
-    localStorage.setItem(`${movie.imdbID}`,JSON.stringify(movie));
+    if(localStorage.getItem(`${movie.imdbID}`) == null){
+        localStorage.setItem(`${movie.imdbID}`,JSON.stringify(movie));
+    
 
-    // adding to favorites section..
-    const favorites_section = document.getElementById("favorites");
-    const card = document.createElement("div");
-    card.innerHTML = `<img src = "${movie.Poster}" alt = "${movie.Title}">
-        <h3>${movie.Title}</h3>
-        <p>${movie.Year}</p>
-        `
-        const button_to_add = document.createElement('button');
-        button_to_add.textContent = "Remove From Favorites";
-        card.append(button_to_add);
-        card.classList.add("movie-card");
-    favorites_section.append(card);
+        // adding to favorites section..
+        const favorites_section = document.getElementById("favorites");
+        const card = document.createElement("div");
+        card.innerHTML = `<img src = "${movie.Poster}" alt = "${movie.Title}">
+            <h3>${movie.Title}</h3>
+            <p>${movie.Year}</p>
+            `
+            const button_to_add = document.createElement('button');
+            button_to_add.textContent = "Remove From Favorites";
+            card.append(button_to_add);
+            card.classList.add("movie-card");
+        favorites_section.append(card);
+    }
 
 
 }
@@ -187,15 +198,11 @@ function display_movie(data){
         card.append(button_to_add);
 
         button_to_add.onclick = () => add_movie_to_favorites(movie);
-        
-        
-        
 
         // adding the card to the results section..
         result_section.append(card);
 
         card.classList.add("movie-card");
-        
         
     });
 }
