@@ -104,6 +104,14 @@ search_button.onclick = function( ) {
     we will mostly store on the basis of ibmId..
 
 
+    how do i remove the movies from favorites section.. 
+
+    what we can do is that we will add an event listener to the button and whenever the button is clicked..
+
+    maybe we get some info about the card when it is clickd ?
+
+
+
 
 
 
@@ -112,6 +120,11 @@ search_button.onclick = function( ) {
 document.addEventListener("DOMContentLoaded", function(){
     load_all_the_favorites();
 });
+
+const section = document.getElementById("favorites");
+section.addEventListener("click", (e) => {
+
+})
 function load_all_the_favorites(){
     console.log("this function is running ..");
     const favorites_section = document.getElementById("favorites");
@@ -160,6 +173,7 @@ function add_movie_to_favorites(movie){
 
 function display_movie(data){
     const result_section = document.getElementById("movieResults");
+    result_section.innerHTML = "";
     data.forEach( movie => {
         console.log(movie);
         const card = document.createElement("div");
@@ -188,6 +202,7 @@ function display_movie(data){
 
 async function fetch_movies(query){
     try{
+
         var response = await fetch(`${API_URL}&s=${query}&p=${2}`);
         if(!response.ok){
             throw new Error(`HTTP error! Status : ${response.status}`);
