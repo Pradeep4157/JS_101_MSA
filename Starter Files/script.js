@@ -163,6 +163,7 @@ function add_movie_to_favorites(movie){
     // adding to localStorage..
     if(localStorage.getItem(`${movie.imdbID}`) == null){
         localStorage.setItem(`${movie.imdbID}`,JSON.stringify(movie));
+        
     
 
         // adding to favorites section..
